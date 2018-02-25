@@ -134,7 +134,7 @@ class HOCLexer(Lexer):
     #
     # El valor debe ser convertir en un float de Python cuando se lea
 
-    @_(r'(\d*\.\d*)(e[-+]?\d+)?|([1-9]\d*)(e\d+)')
+    @_(r'((\d*\.\d+)|(\d+\.\d*)|([1-9]e\d+))(e[-+]?\d+)?')
     def FLOAT(self, t):
         t.value = float(t.value)
         return t
@@ -146,7 +146,7 @@ class HOCLexer(Lexer):
     # El valor debe ser convertido a un int de Python cuando se lea.
     #
     # Bonificación. Reconocer enteros en diferentes bases tales como 0x1a, 0o13 or 0b111011.
-    @_(r'(\d+)|(0b[0-1]+)|(0o[0-7]+)|(0x[0-9a-f]+)')
+    @_(r'(0b[0-1]+)|(0o[0-7]+)|(0x[0-9a-f]+)|(\d+)')
     def INTEGER(self, t):
         # Conversion a int de Python
         t.value = int(t.value)

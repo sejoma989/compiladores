@@ -33,44 +33,13 @@ class HOCLexer(Lexer):
         'INTEGER', 'FLOAT', 'STRING',
 
         # Operadores y delimitadores
-        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'BLTIN', 'UNDEF', 'READ',
+        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'BLTIN', 'UNDEF', 'READ', 'OR',
+        'AND', 'LE', 'EQ', 'GE', 'NE', 'INC', 'DEC', 'POWER', 'LT', 'GT',
 
         # Delimitadores y otros símbolos
         'ASSIGN', 'LPAREN', 'RPAREN', 'SEMI', 'COMMA',
-        'LBRACE', 'RBRACE', 'LBRACKET', 'RBRACKET',
-    }
-
-    operators = {
-        r'+' : "PLUS",
-        r'-' : "MINUS",
-        r'*' : "TIMES",
-        r'/' : "DIVIDE",
-        r'^' : "POWER",
-        r'%' : "MODULE",
-        r'=' : "ASSIGN",
-        r';' : "SEMI",
-        r'(' : "LPAREN",
-        r')' : "RPAREN",
-        r'{' : "LBRACKET",
-        r'}' : "RBRACKET",
-        r',' : "COMMA",
-        r'?' : "ARG",
-        r'+=' : "ADDEQ",
-        r'-=' : "SUBEQ",
-        r'*=' : "MULEQ",
-        r'/=' : "DIVEQ",
-        r'%=' : "MODEQ",
-        r'||' : "OR",
-        r'&&' : "AND",
-        r'<' : "LT",
-        r'<=' : "LE",
-        r'==' : "EQ",
-        r'>=' : "GE",
-        r'>' : "GT",
-        r'!=' : "NE",
-        r'!' : "NOT",
-        r'++':"INC",
-        r'--':"DEC",
+        'LBRACE', 'RBRACE', 'LBRACKET', 'RBRACKET', 'ADDEQ', 'SUBEQ', 'MULEQ',
+        'DIVEQ', 'MODEQ', 'MODULE', 'ARG', 'NOT'
     }
 
     # ----------------------------------------------------------------------
@@ -111,10 +80,23 @@ class HOCLexer(Lexer):
     # más largos deben aparecer antes de los símbolos más cortos que son
     # una subcadena (por ejemplo, el patrón para <= debe ir antes de <).
 
+    ADDEQ    = r'\+='
+    SUBEQ    = r'-='
+    MULEQ    = r'\*='
+    DIVEQ    = r'\/='
+    MODEQ    = r'\%='
+    OR       = r'\|\|'
+    AND      = r'\&\&'
+    LE       = r'<='
+    EQ       = r'=='
+    GE       = r'>='
+    NE       = r'!='
+    INC      = r'\+\+'
+    DEC      = r'--'
     PLUS     = r'\+'
     MINUS    = r'-'
     TIMES    = r'\*'
-    DIVIDE   = r'/'
+    DIVIDE   = r'\/'
     SEMI     = r';'
     LPAREN   = r'\('
     RPAREN   = r'\)'
@@ -122,6 +104,12 @@ class HOCLexer(Lexer):
     LBRACKET = r'\{'
     RBRACKET = r'\}'
     ASSIGN   = r'='
+    POWER    = r'\^'
+    MODULE   = r'\%'
+    ARG      = r'\?'
+    LT       = r'<'
+    GT       = r'>'
+    NOT      = r'!'
 
     # ----------------------------------------------------------------------
     #                           *** DEBE COMPLETAR ***

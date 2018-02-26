@@ -16,7 +16,10 @@ class HOCLexer(Lexer):
     # Conjunto de palabras reservadas. Este conjunto enumera todos los
     # nombres especiales utilizados en el lenguaje, como 'if', 'else',
     # 'while', 'return', etc.
-    keywords = { 'var', 'const', 'print', 'func', 'proc', 'extern', 'if', 'while', 'for', 'else', 'return'}
+    keywords = { 'var', 'const', 'print', 'func', 'procedure',
+                'extern', 'if', 'while', 'for', 'else', 'return',
+                'bltin', 'read', 'function'
+    }
 
     # ----------------------------------------------------------------------
     # Conjunto de token. Este conjunto identifica la lista completa de
@@ -55,12 +58,12 @@ class HOCLexer(Lexer):
     #
 
     # Comentario estilo-C (/* ... */)
-    @_(r'/\*.*\*/')
+    @_(r'/\*(.|\n)*\*/')
     def COMMENT(self, t):
         self.lineno += t.value.count('\n')
 
     # Comentario estilo-C++ (//...)
-    @_(r'//.*')
+    @_(r'//.*?')
     def CPPCOMMENT(self, t):
         self.lineno += 1
 
@@ -136,7 +139,8 @@ class HOCLexer(Lexer):
 
     @_(r'(\d*\.\d*)(e[-+]?\d+)?|([1-9]\d*)(e\d+)')
     def FLOAT(self, t):
-        t.value = float(t.value)
+        if(not("e" in t.value)):
+            t.value = float(t.value)
         return t
 
     # Constante entera
@@ -146,10 +150,13 @@ class HOCLexer(Lexer):
     # El valor debe ser convertido a un int de Python cuando se lea.
     #
     # Bonificación. Reconocer enteros en diferentes bases tales como 0x1a, 0o13 or 0b111011.
-    @_(r'(\d+)|(0b[0-1]+)|(0o[0-7]+)|(0x[0-9a-f]+)')
+    @_(r'(0b[0-1]+)|(0o[0-7]+)|(0x[0-9a-f]+)|(\d+)')
     def INTEGER(self, t):
         # Conversion a int de Python
-        t.value = int(t.value)
+        if(not("b" in t.value or "o" in t.value or "x" in t.value)):
+            #Se abstiene de convertir a enteros numeros que no estan en base 10
+            t.value = int(t.value)
+
         return t
 
     # Constante de Cadena. Se debe reconocer texto encerrado entre comillas dobles.
@@ -160,7 +167,7 @@ class HOCLexer(Lexer):
     # Las comillas no son incluidas como parte de su valor.
     #
     # Bonificación: ¿Cómo reconocer secuencias de escape como \" o \ n?
-    @_(r'(\".*\")')
+    @_(r'\".*\"(,var|,\".*\")*')
     def STRING(self, t):
         t.value = t.value[1:-1]
         return t
@@ -191,17 +198,43 @@ class HOCLexer(Lexer):
         if t.value == 'var':
             t.type = 'VAR'
 
-        if t.value == 'const':
+        elif t.value == 'const':
             t.type = 'CONST'
 
-        if t.value == 'print':
+        elif t.value == 'print':
             t.type = 'PRINT'
 
-        if t.value == 'func':
+        elif t.value == 'func':
             t.type = 'FUNC'
 
-        if t.value == 'extern':
+        elif t.value == 'extern':
             t.type = 'EXTERN'
+
+        elif t.value=='return':
+            t.type='RETURN'
+
+        elif t.value=='procedure':
+            t.type='PROCEDURE'
+
+        elif t.value=='while':
+            t.type='WHILE'
+
+        elif t.value=='for':
+            t.type='FOR'
+
+        elif t.value=='else':
+            t.type='ELSE'
+
+        elif t.value=='read':
+            t.type='READ'
+
+        elif t.value=='bltin':
+            t.type='BLTIN'
+
+        elif t.value=='proc':
+            t.type='PROC'
+
+            return t
         # *** IMPLEMENTE ***
         # Agregar código para buscar palabras clave como 'var', 'const', 'print', etc.
         # Cambia el tipo de token según sea necesario. Por ejemplo:
@@ -209,7 +242,6 @@ class HOCLexer(Lexer):
         # if t.value == 'var':
         #     t.type = 'VAR"
 
-        return t
 
     # ----------------------------------------------------------------------
     # Método que ignora una o más líneas e incrementa el número de ellas
@@ -220,10 +252,10 @@ class HOCLexer(Lexer):
     # ----------------------------------------------------------------------
     # Manejo de errores de caracteres incorrectos
     def error(self, value):
-        error(self.lineno,"Caracter ilegal %r" % value[0])
+        error(self.lineno,"Caracter ilegal %s" % (value.value[0]))
         self.index += 1
 
-# ------------------------------------------------- ---------------------
+# -------------------------------s------------------ ---------------------
 #                   NO CAMBIE NADA POR DEBAJO DE ESTA PARTE
 #
 # Use este programa principal para probar/depurar su Lexer. Ejecutelo usando la opción -m

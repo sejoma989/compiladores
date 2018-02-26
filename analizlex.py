@@ -137,7 +137,7 @@ class HOCLexer(Lexer):
     #
     # El valor debe ser convertir en un float de Python cuando se lea
 
-    @_(r'(\d*\.\d*)(e[-+]?\d+)?|([1-9]\d*)(e\d+)')
+    @_(r'((\d*\.\d+)|(\d+\.\d*)|([1-9]e\d+))(e[-+]?\d+)?')
     def FLOAT(self, t):
         if(not("e" in t.value)):
             t.value = float(t.value)

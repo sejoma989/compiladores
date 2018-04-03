@@ -85,11 +85,11 @@ class HOCParser(Parser):
 	;
 	'''
 
-	@('FUNC procname  '(' formals ')' stmt')
+	@_('FUNC procname  '(' formals ')' stmt')
 	def defn(self, p):
 		pass
 
-	@('PROC procname  '(' formals ')' stmt')
+	@_('PROC procname  '(' formals ')' stmt')
 	def defn(self, p):
 		pass
 
@@ -107,35 +107,35 @@ class HOCParser(Parser):
 	;
     '''
 
-    @('expr')
+    @_('expr')
 	def stmt(self, p):
 		pass
 
-	@('RETURN expr')
+    @_('RETURN expr')
 	def stmt(self, p):
 		pass
 
-    @('PROCEDURE begin '(' arglist ')'')
+    @_('PROCEDURE begin '(' arglist ')'')
 	def stmt(self, p):
 		pass
 
-	@('PRINT prlist	')
+    @_('PRINT prlist')
 	def stmt(self, p):
 		pass
 
-    @('while '(' cond ')' stmt end ')
+    @_('while '(' cond ')' stmt end ')
 	def stmt(self, p):
 		pass
 
-    @('for '(' cond ';' cond ';' cond ')' stmt end ')
+    @_('for '(' cond ';' cond ';' cond ')' stmt end ')
 	def stmt(self, p):
 		pass
 
-    @('if '(' cond ')' stmt end ')
+    @_('if '(' cond ')' stmt end ')
 	def stmt(self, p):
 		pass
 
-	@('if '(' cond ')' stmt end ELSE stmt end')
+    @_('if '(' cond ')' stmt end ELSE stmt end')
 	def stmt(self, p):
 		pass
 
@@ -186,15 +186,15 @@ class HOCParser(Parser):
 	;
     '''
 
-    @('')
+    @_('')
     def stmtlist(self, p):
         pass
 
-    @('(stmtlist '\n')')
+    @_('(stmtlist '\n')')
     def stmtlist(self, p):
         pass
 
-    @('stmtlist stmt')
+    @_('stmtlist stmt')
     def stmtlist(self, p):
         pass
 
@@ -229,115 +229,115 @@ class HOCParser(Parser):
 	;
     '''
 
-    @(' ')
+    @_(' ')
     def expr(self, p):
         pass
 
-    @('VAR')
+    @_('VAR')
     def expr(self, p):
         pass
 
-    @('asgn')
+    @_('asgn')
     def expr(self, p):
         pass
 
-    @(' FUNCTION begin '(' arglist ')' ')
+    @_(' FUNCTION begin '(' arglist ')' ')
     def expr(self, p):
         pass
 
-    @(' READ '(' VAR ')' ')
+    @_(' READ '(' VAR ')' ')
     def expr(self, p):
         pass
 
-    @(' BLTIN '(' expr ')' ')
+    @_(' BLTIN '(' expr ')' ')
     def expr(self, p):
         pass
 
-    @(' '(' expr ')' ')
+    @_(' '(' expr ')' ')
     def expr(self, p):
         pass
 
-    @(' expr '+' expr')
-    def expr(self, p):
-        passexpr AND expr
-
-    @(' expr '-' expr ')
+    @_(' expr '+' expr')
     def expr(self, p):
         pass
 
-    @(' expr '*' expr ')
+    @_(' expr '-' expr ')
     def expr(self, p):
         pass
 
-    @(' expr '/' expr')
+    @_(' expr '*' expr ')
     def expr(self, p):
         pass
 
-    @(' expr '%' expr')
+    @_(' expr '/' expr')
     def expr(self, p):
         pass
 
-    @(' expr '^' expr')
+    @_(' expr '%' expr')
     def expr(self, p):
         pass
 
-    @(' '-' expr ')
+    @_(' expr '^' expr')
     def expr(self, p):
         pass
 
-    @(' expr GT expr')
+    @_(' '-' expr ')
     def expr(self, p):
         pass
 
-    @(' expr GE expr')
+    @_(' expr GT expr')
     def expr(self, p):
         pass
 
-    @(' expr LT expr')
+    @_(' expr GE expr')
     def expr(self, p):
         pass
 
-    @(' expr LE expr')
+    @_(' expr LT expr')
     def expr(self, p):
         pass
 
-    @(' expr EQ expr')
+    @_(' expr LE expr')
     def expr(self, p):
         pass
 
-    @(' expr NE expr')
+    @_(' expr EQ expr')
     def expr(self, p):
         pass
 
-    @(' expr AND expr')
+    @_(' expr NE expr')
     def expr(self, p):
         pass
 
-    @(' expr OR expr')
+    @_(' expr AND expr')
     def expr(self, p):
         pass
 
-    @(' NOT expr')
+    @_(' expr OR expr')
     def expr(self, p):
         pass
 
-    @(' INC VAR')
+    @_(' NOT expr')
     def expr(self, p):
         pass
 
-    @(' DEC VAR')
+    @_(' INC VAR')
     def expr(self, p):
         pass
 
-    @(' VAR INC')
+    @_(' DEC VAR')
     def expr(self, p):
         pass
 
-    @(' VAR DEC')
+    @_(' VAR INC')
     def expr(self, p):
         pass
 
-    @(' expr ')
+    @_(' VAR DEC')
+    def expr(self, p):
+        pass
+
+    @_(' expr ')
     def prlist(self, p):
         pass
 
@@ -349,19 +349,19 @@ class HOCParser(Parser):
 	;
     '''
 
-    @(' expr ')
+    @_(' expr ')
     def prlist(self, p):
         pass
 
-    @(' STRING ')
+    @_(' STRING ')
     def prlist(self, p):
         pass
 
-    @(' prlist ',' expr ')
+    @_(' prlist ',' expr ')
     def prlist(self, p):
         pass
 
-    @(' prlist ',' STRING ')
+    @_(' prlist ',' STRING ')
     def prlist(self, p):
         pass
 
@@ -372,11 +372,11 @@ class HOCParser(Parser):
     ;
     '''
 
-    @(' VAR ')
+    @_(' VAR ')
     def formals(self, p):
         pass
 
-    @(' VAR ',' formals ')
+    @_(' VAR ',' formals ')
     def formals(self, p):
         pass
 
@@ -388,15 +388,15 @@ class HOCParser(Parser):
     ;
     '''
 
-    @(' VAR ')
+    @_(' VAR ')
     def procname(self, p):
         pass
 
-    @(' FUNCTION ')
+    @_(' FUNCTION ')
     def procname(self, p):
         pass
 
-    @(' PROCEDURE ')
+    @_(' PROCEDURE ')
     def procname(self, p):
         pass
 
@@ -407,14 +407,26 @@ class HOCParser(Parser):
     ;
     '''
 
-    @(' ')
+    @_(' ')
     def arglist(self, p):
         pass
 
-    @(' expr ')
+    @_(' expr ')
     def arglist(self, p):
         pass
 
-    @(' arglist ',' expr ')
+    @_(' arglist ',' expr ')
     def arglist(self, p):
         pass
+	
+if __name__ == '__main__':
+    lexer = CalcLexer()
+    parser = CalcParser()
+
+    while True:
+        try:
+            text = input('calc > ')
+            result = parser.parse(lexer.tokenize(text))
+            print(result)
+        except EOFError:
+            break

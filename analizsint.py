@@ -2,8 +2,7 @@ from sly import Parser
 from analizlex import HOCLexer
 
 class HOCParser(Parser):
-    tokens = HOCLexer.tokens
-	pass
+	tokens = HOCLexer.tokens
 
 	'''
 	list:	  /* nothing */
@@ -55,28 +54,28 @@ class HOCParser(Parser):
 	;
 	'''
 
-	@_('VAR' '=' expr')
-		def assign(self,p):
+	@_('VAR' '=' 'expr')
+	def assign(self,p):
 		pass
 
-	@_('VAR' ADDEQ expr')
-		def assign(self,p):
+	@_('VAR ADDEQ expr')
+	def assign(self,p):
 		pass
 
-	@_('VAR' SUBEQ expr')
-		def assign(self,p):
+	@_('VAR SUBEQ expr')
+	def assign(self,p):
 		pass
 
-	@_('VAR' MULEQ expr')
-		def assign(self,p):
+	@_('VAR MULEQ expr')
+	def assign(self,p):
 		pass
 
-	@_('VAR' DIVEQ expr')
-		def assign(self,p):
+	@_('VAR DIVEQ expr')
+	def assign(self,p):
 		pass
 
-	@_('VAR' MODEQ expr')
-		def assign(self,p):
+	@_('VAR MODEQ expr')
+	def assign(self,p):
 		pass
 
 	'''
@@ -85,15 +84,15 @@ class HOCParser(Parser):
 	;
 	'''
 
-	@_('FUNC procname  '(' formals ')' stmt')
+	@_(' FUNC procname  "(" formals ")" stmt')
 	def defn(self, p):
 		pass
 
-	@_('PROC procname  '(' formals ')' stmt')
+	@_('PROC procname  "(" formals ")" stmt')
 	def defn(self, p):
 		pass
 
-    '''
+	'''
     stmt: expr
     	| RETURN
     	| RETURN expr
@@ -107,47 +106,47 @@ class HOCParser(Parser):
 	;
     '''
 
-    @_('expr')
+	@_('expr')
 	def stmt(self, p):
 		pass
 
-    @_('RETURN expr')
+	@_('RETURN expr')
 	def stmt(self, p):
 		pass
 
-    @_('PROCEDURE begin '(' arglist ')'')
+	@_('PROCEDURE begin "(" arglist ")"')
 	def stmt(self, p):
 		pass
 
-    @_('PRINT prlist')
+	@_('PRINT prlist')
 	def stmt(self, p):
 		pass
 
-    @_('while '(' cond ')' stmt end ')
+	@_('while "(" cond ")" stmt end ')
 	def stmt(self, p):
 		pass
 
-    @_('for '(' cond ';' cond ';' cond ')' stmt end ')
+	@_('for "(" cond ";" cond ";" cond ")" stmt end ')
 	def stmt(self, p):
 		pass
 
-    @_('if '(' cond ')' stmt end ')
+	@_('if "(" cond ")" stmt end ')
 	def stmt(self, p):
 		pass
 
-    @_('if '(' cond ')' stmt end ELSE stmt end')
+	@_('if "(" cond ")" stmt end ELSE stmt end')
 	def stmt(self, p):
 		pass
 
-    '''
-    @(''{' stmtlist '}'')
+	'''
+	@(''{' stmtlist '}'')
 	def stmt(self, p):
 		pass
-    '''
+	'''
 
 
-    '''
-    while: WHILE
+	'''
+	while: WHILE
 	   ;
 
     @('WHILE')
@@ -171,253 +170,250 @@ class HOCParser(Parser):
         pass
     '''
 
-    def begin(self, p):
-        pass
-	;
-
-    def end(self, p):
-        pass
-	;
-
-    '''
+	def begin(self, p):
+		pass
+	
+	def end(self, p):
+		pass
+	
+	'''
     stmtlist: /* nothing */
 	       | stmtlist '\n'
 	       | stmtlist stmt
 	;
     '''
+	@_('empty')
+	def stmtlist(self, p):
+		pass
 
-    @_('')
-    def stmtlist(self, p):
-        pass
+	@_('stmtlist "\n" ')
+	def stmtlist(self, p):
+		pass
 
-    @_('(stmtlist '\n')')
-    def stmtlist(self, p):
-        pass
+	@_('stmtlist stmt')
+	def stmtlist(self, p):
+		pass
 
-    @_('stmtlist stmt')
-    def stmtlist(self, p):
-        pass
-
-    '''
-    expr:
-    	| VAR
-    	| asgn
-    	| FUNCTION begin '(' arglist ')'
-    	| READ '(' VAR ')'
-    	| BLTIN '(' expr ')'
-    	| '(' expr ')'
-    	| expr '+' expr
-    	| expr '-' expr
-    	| expr '*' expr
-    	| expr '/' expr
-    	| expr '%' expr
-    	| expr '^' expr
-    	| '-' expr
-    	| expr GT expr
-    	| expr GE expr
-    	| expr LT expr
-    	| expr LE expr
-    	| expr EQ expr
-    	| expr NE expr
-    	| expr AND expr
-    	| expr OR expr
-    	| NOT expr
-    	| INC VAR
-    	| DEC VAR
-    	| VAR INC
-    	| VAR DEC
+	'''
+	expr:
+		| VAR
+		| asgn
+		| FUNCTION begin '(' arglist ')'
+		| READ '(' VAR ')'
+		| BLTIN '(' expr ')'
+		| '(' expr ')'
+		| expr '+' expr
+		| expr '-' expr
+		| expr '*' expr
+		| expr '/' expr
+		| expr '%' expr
+		| expr '^' expr
+		| '-' expr
+		| expr GT expr
+		| expr GE expr
+		| expr LT expr
+		| expr LE expr
+		| expr EQ expr
+		| expr NE expr
+		| expr AND expr
+		| expr OR expr
+		| NOT expr
+		| INC VAR
+		| DEC VAR
+		| VAR INC
+		| VAR DEC
 	;
-    '''
+	'''
 
-    @_(' ')
-    def expr(self, p):
-        pass
+	@_(' ')
+	def expr(self, p):
+		pass
 
-    @_('VAR')
-    def expr(self, p):
-        pass
+	@_('VAR')
+	def expr(self, p):
+		pass
 
-    @_('asgn')
-    def expr(self, p):
-        pass
+	@_('asgn')
+	def expr(self, p):
+		pass
 
-    @_(' FUNCTION begin '(' arglist ')' ')
-    def expr(self, p):
-        pass
+	@_(' FUNCTION begin '(' arglist ')' ')
+	def expr(self, p):
+		pass
 
-    @_(' READ '(' VAR ')' ')
-    def expr(self, p):
-        pass
+	@_(' READ '(' VAR ')' ')
+	def expr(self, p):
+		pass
 
-    @_(' BLTIN '(' expr ')' ')
-    def expr(self, p):
-        pass
+	@_(' BLTIN '(' expr ')' ')
+	def expr(self, p):
+		pass
 
-    @_(' '(' expr ')' ')
-    def expr(self, p):
-        pass
+	@_(' '(' expr ')' ')
+	def expr(self, p):
+		pass
 
-    @_(' expr '+' expr')
-    def expr(self, p):
-        pass
+	@_(' expr '+' expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr '-' expr ')
-    def expr(self, p):
-        pass
+	@_(' expr '-' expr ')
+	def expr(self, p):
+		pass
 
-    @_(' expr '*' expr ')
-    def expr(self, p):
-        pass
+	@_(' expr '*' expr ')
+	def expr(self, p):
+		pass
 
-    @_(' expr '/' expr')
-    def expr(self, p):
-        pass
+	@_(' expr '/' expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr '%' expr')
-    def expr(self, p):
-        pass
+	@_(' expr '%' expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr '^' expr')
-    def expr(self, p):
-        pass
+	@_(' expr '^' expr')
+	def expr(self, p):
+		pass
 
-    @_(' '-' expr ')
-    def expr(self, p):
-        pass
+	@_(' '-' expr ')
+	def expr(self, p):
+		pass
 
-    @_(' expr GT expr')
-    def expr(self, p):
-        pass
+	@_(' expr GT expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr GE expr')
-    def expr(self, p):
-        pass
+	@_(' expr GE expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr LT expr')
-    def expr(self, p):
-        pass
+	@_(' expr LT expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr LE expr')
-    def expr(self, p):
-        pass
+	@_(' expr LE expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr EQ expr')
-    def expr(self, p):
-        pass
+	@_(' expr EQ expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr NE expr')
-    def expr(self, p):
-        pass
+	@_(' expr NE expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr AND expr')
-    def expr(self, p):
-        pass
+	@_(' expr AND expr')
+	def expr(self, p):
+		pass
 
-    @_(' expr OR expr')
-    def expr(self, p):
-        pass
+	@_(' expr OR expr')
+	def expr(self, p):
+		pass
 
-    @_(' NOT expr')
-    def expr(self, p):
-        pass
+	@_(' NOT expr')
+	def expr(self, p):
+		pass
 
-    @_(' INC VAR')
-    def expr(self, p):
-        pass
+	@_(' INC VAR ')
+	def expr(self, p):
+		pass
 
-    @_(' DEC VAR')
-    def expr(self, p):
-        pass
+	@_(' DEC VAR ')
+		def expr(self, p):
+		pass
 
-    @_(' VAR INC')
-    def expr(self, p):
-        pass
+	@_(' VAR INC')
+	def expr(self, p):
+		pass
 
-    @_(' VAR DEC')
-    def expr(self, p):
-        pass
+	@_(' VAR DEC')
+	def expr(self, p):
+		pass
 
-    @_(' expr ')
-    def prlist(self, p):
-        pass
+	@_(' expr ')
+	def prlist(self, p):
+		pass
 
-    '''
-    prlist:	  expr
-    	| STRING
-    	| prlist ',' expr
-    	| prlist ',' STRING
+	'''
+	prlist:	  expr
+		| STRING
+		| prlist ',' expr
+		| prlist ',' STRING
 	;
-    '''
+	'''
 
-    @_(' expr ')
-    def prlist(self, p):
-        pass
+	@_(' expr ')
+	def prlist(self, p):
+		pass
 
-    @_(' STRING ')
-    def prlist(self, p):
-        pass
+	@_('STRING')
+	def prlist(self, p):
+		pass
 
-    @_(' prlist ',' expr ')
-    def prlist(self, p):
-        pass
+	@_(' prlist ',' expr ')
+	def prlist(self, p):
+		pass
 
-    @_(' prlist ',' STRING ')
-    def prlist(self, p):
-        pass
+	@_(' prlist ',' STRING ')
+	def prlist(self, p):
+		pass
 
-    '''
-    formals: VAR
-    	| VAR ',' formals
+	'''
+	formals: VAR
+		| VAR ',' formals
 
-    ;
-    '''
+	;
+	'''
 
-    @_(' VAR ')
-    def formals(self, p):
-        pass
+	@_(' VAR ')
+	def formals(self, p):
+		pass
 
-    @_(' VAR ',' formals ')
-    def formals(self, p):
-        pass
+	@_(' VAR ',' formals ')
+	def formals(self, p):
+		pass
 
-    '''
-    procname: VAR
-    	| FUNCTION
-    	| PROCEDURE
+	'''
+	procname: VAR
+		| FUNCTION
+		| PROCEDURE
 
-    ;
-    '''
+	;
+	'''
 
-    @_(' VAR ')
-    def procname(self, p):
-        pass
+	@_(' VAR ')
+	def procname(self, p):
+		pass
 
-    @_(' FUNCTION ')
-    def procname(self, p):
-        pass
+	@_(' FUNCTION ')
+	def procname(self, p):
+		pass
 
-    @_(' PROCEDURE ')
-    def procname(self, p):
-        pass
+	@_(' PROCEDURE ')
+	def procname(self, p):
+		pass
 
-    '''
-    arglist:  /* nothing */
-    	| expr
-    	| arglist ',' expr
-    ;
-    '''
+	'''
+	arglist:  /* nothing */
+		| expr
+		| arglist ',' expr
+	;
+	'''
 
-    @_(' ')
-    def arglist(self, p):
-        pass
+	@_('empty')
+	def arglist(self, p):
+		pass
 
-    @_(' expr ')
-    def arglist(self, p):
-        pass
+	@_(' expr ')
+	def arglist(self, p):
+		pass
 
-    @_(' arglist ',' expr ')
-    def arglist(self, p):
-        pass
+	@_(' arglist ',' expr ')
+	def arglist(self, p):
+		pass
 	
 if __name__ == '__main__':
     lexer = CalcLexer()

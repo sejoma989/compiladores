@@ -16,18 +16,17 @@ class HOCLexer(Lexer):
     # Conjunto de palabras reservadas. Este conjunto enumera todos los
     # nombres especiales utilizados en el lenguaje, como 'if', 'else',
     # 'while', 'return', etc.
-    keywords = { 'var', 'const', 'print', 'func', 'procedure',
-                'extern', 'if', 'while', 'for', 'else', 'return',
-                'bltin', 'read', 'function'
+    keywords = { 'VAR', 'CONST', 'PRINT', 'FUNC', 'PROCEDURE', 'IF', 'WHILE', 'FOR', 'ELSE', 'RETURN',
+                 'READ', 'FUNCTION', 'PROC'
     }
-
+    bltins={'SIN'}
     # ----------------------------------------------------------------------
     # Conjunto de token. Este conjunto identifica la lista completa de
     # nombres de tokens que reconocerá su lexer. No cambie ninguno de estos
     # nombres.
     tokens = {
         # keywords (incorpora versiones de mayúsculas y minúsculas de las palabras clave anteriores)
-        * { kw.upper() for kw in keywords },
+        * keywords,
 
         # Identificadores
         'ID', 'FUNCTION', 'PROCEDURE',
@@ -36,13 +35,13 @@ class HOCLexer(Lexer):
         'INTEGER', 'FLOAT', 'STRING',
 
         # Operadores y delimitadores
-        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'BLTIN', 'UNDEF', 'READ', 'OR',
+        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'BLTIN', 'READ', 'OR',
         'AND', 'LE', 'EQ', 'GE', 'NE', 'INC', 'DEC', 'POWER', 'LT', 'GT',
 
         # Delimitadores y otros símbolos
         'ASSIGN', 'LPAREN', 'RPAREN', 'SEMI', 'COMMA',
-        'LBRACE', 'RBRACE', 'LBRACKET', 'RBRACKET', 'ADDEQ', 'SUBEQ', 'MULEQ',
-        'DIVEQ', 'MODEQ', 'MODULE', 'ARG', 'NOT'
+        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'ADDEQ', 'SUBEQ', 'MULEQ',
+        'DIVEQ', 'MODEQ', 'MODULE', 'ARG', 'NOT', 'NEWLINE'
     }
 
     # ----------------------------------------------------------------------
@@ -191,50 +190,14 @@ class HOCLexer(Lexer):
     # bajos después de eso.
     # Las palabras reservadas del lenguaje como "if" y "while" también se
     # combinan como identificadores. Debe capturar estos y cambiar su tipo
-    # de token para que coincida con la palabra clave adecuada.
-
+    # de token para que coincida con la palabra clave adecuada. 
     @_(r'[a-zA-Z][a-zA-Z]*\d*_*|[_][a-zA-Z]*\d*_*')
     def ID(self, t):
-        if t.value == 'var':
-            t.type = 'VAR'
-
-        elif t.value == 'const':
-            t.type = 'CONST'
-
-        elif t.value == 'print':
-            t.type = 'PRINT'
-
-        elif t.value == 'func':
-            t.type = 'FUNC'
-
-        elif t.value == 'extern':
-            t.type = 'EXTERN'
-
-        elif t.value=='return':
-            t.type='RETURN'
-
-        elif t.value=='procedure':
-            t.type='PROCEDURE'
-
-        elif t.value=='while':
-            t.type='WHILE'
-
-        elif t.value=='for':
-            t.type='FOR'
-
-        elif t.value=='else':
-            t.type='ELSE'
-
-        elif t.value=='read':
-            t.type='READ'
-
-        elif t.value=='bltin':
-            t.type='BLTIN'
-
-        elif t.value=='proc':
-            t.type='PROC'
-
-            return t
+        if t.value.upper() in self.keywords:
+            t.type = t.value.upper()
+        if(t.value.upper() in self.bltins):
+            t.type = "BLTIN"
+        return t
         # *** IMPLEMENTE ***
         # Agregar código para buscar palabras clave como 'var', 'const', 'print', etc.
         # Cambia el tipo de token según sea necesario. Por ejemplo:
@@ -246,8 +209,9 @@ class HOCLexer(Lexer):
     # ----------------------------------------------------------------------
     # Método que ignora una o más líneas e incrementa el número de ellas
     @_(r'\n+')
-    def ignore_newline(self, t):
+    def NEWLINE(self, t):
         self.lineno += len(t.value)
+        return t
 
     # ----------------------------------------------------------------------
     # Manejo de errores de caracteres incorrectos

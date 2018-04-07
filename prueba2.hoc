@@ -1,21 +1,29 @@
 1+2*3
+
+
+
+
+
 angle=PI/3
 r=sin(angle)
 r
 r*2
 
-i = 0   //initialize i
-j = 0   //initialize j
-if(vec.x[i] <= 10 && i < vec.size()){   //In the parentheses is an expression:
-                                        //if the value of the ith element in vec
-                                        //is less than or equal to 10, and
-                                        //if i is an index within vec
-                                        //
-                                        //Between the braces is/are statement(s):
-        vec1.x[j] = vec.x[i]
-        i = i+1                         //increment i by 1
-        j = j+1                         //increment j by 1
-} else{
-                                        //Here is also a statement
-        i = i+1                         //simply go to the next element of vec
-}
+func atan2(){
+         if(S1>0){
+                 return atan(S2/S1)
+         } else if (S1<0){
+                 return atan(S2/S1)+PI
+         } else if (S2>0){
+                 return PI/2
+         } else if (S2<0){
+                 return -PI/2
+         } else {
+                 print "atan2 domain error"
+                 return 0
+         }
+ }
+ 
+ atan2(2,3)
+ atan2(0,0)
+

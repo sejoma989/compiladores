@@ -1,0 +1,19 @@
+func gcd(i,j) {
+        ## gcd(i,j) returns the greatest common denominator of i and j
+        temp = abs(i) % abs(j)
+        if(temp == 0) return abs(j)
+        return gcd(j, temp)
+}
+
+for(i=1; i<12; i++) print gcd(i,12)
+print "\n"
+
+
+### Print a table of the representable negative powers of 2
+k = 0
+x = 1
+while(x > 0) {
+        print "2\^(", k, ") = ", x, "\n"
+        k--
+        x /= 2
+}

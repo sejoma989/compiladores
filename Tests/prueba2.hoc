@@ -1,0 +1,29 @@
+1+2*3
+
+
+
+
+
+angle=PI/3
+r=sin(angle)
+r
+r*2
+
+func atan2(){
+         if(S1>0){
+                 return atan(S2/S1)
+         } else if (S1<0){
+                 return atan(S2/S1)+PI
+         } else if (S2>0){
+                 return PI/2
+         } else if (S2<0){
+                 return -PI/2
+         } else {
+                 print "atan2 domain error"
+                 return 0
+         }
+ }
+ 
+ atan2(2,3)
+ atan2(0,0)
+

@@ -1,0 +1,13 @@
+func ack(int z, int x, int y) {
+	n = x+y
+	z= n+3
+	a=1
+
+	if(S1 == 0) return (S2+1)
+	if(S2 == 0) 	 return (ack(S1 - 1, 1))
+	return (ack(S1 - 1, ack(S1, S2 - 1)))
+}
+n=0
+ack(3,3)
+print n, "calls\n"
+

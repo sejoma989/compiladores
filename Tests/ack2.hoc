@@ -1,0 +1,28 @@
+func ack(int m, int y, int w, int S2, string costos, int S1, int c, int G1) int {
+	int n
+	float z
+	string caso
+	m = S2 + 5
+	if(S1 == 0) return (c)
+	if(S2 >= c) return (ack(S1 - G1, 1, 4, 1 , 5, 6, 7, 1))
+}
+
+
+func ack2(int j, float x, string c) string{
+	if (j < 0) return (c)
+	if (j > 0) return (ack2(x-3, c, x))
+	j=ack2(x,c,j)
+}
+
+int n
+float z
+string fgfg
+n = n+1
+fibo(n,z)
+
+while (read(x)) {
+	read(y)
+	print ack(x,y), "\n"
+}
+print n,"\n"
+ack(n, y)

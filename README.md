@@ -1,5 +1,5 @@
 # compiladores
-Repositorio que contiene el proyecto de construir un compilador para el lenguaje HOC (High order calculation), en el lenguaje python 3.6, distribucion anaconda, SLY. 
+Repositorio que contiene el proyecto de construir un compilador para el lenguaje HOC (High order calculation), en el lenguaje python 3.6, framework anaconda, SLY. 
 Para la clase Compiladores de la UTP, los estudiantes:
 Luis Ortiz
 Jose Mario Valencia
